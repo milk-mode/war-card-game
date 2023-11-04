@@ -42,11 +42,36 @@ class Hand(Deck):
         elif player == 'user':
             self.user.append(card)
 
-    def removeCard(self, player):
+    def removeCardFrom(self, player):
         if player == 'computer':
             self.computer.pop
         elif player == 'user':
             self.user.pop
+
+    def popThreeTimesFromBoth(self):
+            self.computer=self.computer[3:]
+            self.user=self.user[3:]
+
+   
+
+    def dealCard(self):
+        cardOfTheUser=self.user[0][1]
+        cardOfTheComputer=self.computer[0][1]
+
+        if cardOfTheUser>cardOfTheComputer:
+         #remove from computer add to user
+             self.removeCardFrom('computer')
+             self.addCardTo(user,cardOfTheComputer)
+
+        elif cardOfTheUser< cardOfTheComputer:
+         #remove from computer add to user         
+             self.removeCardFrom('user')
+             self.addCardTo('computer',cardOfTheUser)
+
+        else:
+         #equal-deal three times and recursion
+         self.popThreeTimesFromBoth
+         self.dealCard               
 
 
 class Player:
