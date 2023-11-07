@@ -34,60 +34,58 @@ class Hand(Deck):
             return value
 
     def dealCard(self):
-        card_value_of_the_user = self.card_value(self.card_user[1:])
-        card_value_of_the_computer = self.card_value(self.card_computer[1:])
+        while self.user or self.computer:
+            card_value_of_the_user = self.card_value(self.card_user[1:])
+            card_value_of_the_computer = self.card_value(self.card_computer[1:])
 
-        print("current user's card {}".format(self.card_user),end="\t")
-        print("current Computer's card {}\n".format(self.card_computer))
+            print("current user's card: {} |Vs|".format(self.card_user), end="\t")
+            print("current Computer's card: {}\n".format(self.card_computer))
+            
+            # guard conditions
+            if len(self.user) > 0 and len(self.computer) == 0:
+                print("*** user wins ***")
+                return
 
-        # guard conditions
-        if len(self.user) > 0 and len(self.computer) == 0:
-            print("*** user wins ***")
-            return
+            if len(self.user) == 0 and len(self.computer) > 0:
+                print("*** computer wins ***")
+                return
 
-        if len(self.user) == 0 and len(self.computer) > 0:
-            print("*** computer wins ***")
-            return
+            if len(self.user) != 0 and len(self.computer) != 0:
+                if int(card_value_of_the_user) > int(card_value_of_the_computer):
+                    # remove from computer add to user
+                    self.remove_card_from('computer', 0)
+                    self.remove_card_from('user', 0)
+                    self.add_card_to('user', self.card_computer)
 
-        if len(self.user) != 0 and len(self.computer) != 0:
-            if int(card_value_of_the_user) > int(card_value_of_the_computer):
-                # remove from computer add to user
-                self.remove_card_from('computer', 0)
-                self.remove_card_from('user', 0)
-                self.add_card_to('user', self.card_computer)
+                elif int(card_value_of_the_user) < int(card_value_of_the_computer):
+                    # remove from computer add to user
+                    self.remove_card_from('user', 0)
+                    self.remove_card_from('computer', 0)
+                    self.add_card_to('computer', self.card_user)
 
-            elif int(card_value_of_the_user) < int(card_value_of_the_computer):
-                # remove from computer add to user
-                self.remove_card_from('user', 0)
-                self.remove_card_from('computer', 0)
-                self.add_card_to('computer', self.card_user)
+                elif int(card_value_of_the_user) == int(card_value_of_the_computer):
+                    # equal-deal three times and recursion
 
-            elif int(card_value_of_the_user) == int(card_value_of_the_computer):
-                # equal-deal three times and recursion
+                    # if it gets to last 3 cards #guard condition
+                    if len(self.user) >= 3 > len(self.computer):
+                        print("*** user wins ***")
+                        return
 
-                # if it gets to last 3 cards #guard condition
-                if len(self.user) >= 3 > len(self.computer):
-                    print("*** user wins ***")
-                    return
+                    if len(self.user) < 3 <= len(self.computer):
+                        print("*** computer wins ***")
+                        return
 
-                if len(self.user) < 3 <= len(self.computer):
-                    print("*** computer wins ***")
-                    return
+                    # pop 3 times
+                    if len(self.computer) > 3:
+                        self.computer = self.computer[4:]
+                    if len(self.user) > 3:
+                        self.user = self.user[4:]
 
-                # pop 3 times
-                if len(self.computer) > 3:
-                    self.computer = self.computer[3:]
-                if len(self.user) > 3:
-                    self.user = self.user[3:]
-
-            # update hand at the players
-            if len(self.user) != 0:
-                self.card_user = self.user[0]
-            if len(self.computer) != 0:
-                self.card_computer = self.computer[0]
-
-        # deal again
-        self.dealCard()
+                # update hand at the players
+                if len(self.user) != 0:
+                    self.card_user = self.user[0]
+                if len(self.computer) != 0:
+                    self.card_computer = self.computer[0]    
 
     def __str__(self):
         return f"User cards: {self.get_user_cards()} and Computer cards: {self.get_computer_cards()}"
