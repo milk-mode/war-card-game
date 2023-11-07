@@ -37,6 +37,9 @@ class Hand(Deck):
         card_value_of_the_user = self.card_value(self.card_user[1:])
         card_value_of_the_computer = self.card_value(self.card_computer[1:])
 
+        print("current user's card {}".format(self.card_user),end="\t")
+        print("current Computer's card {}\n".format(self.card_computer))
+
         # guard conditions
         if len(self.user) > 0 and len(self.computer) == 0:
             print("*** user wins ***")
