@@ -9,24 +9,24 @@ print('==== ====')
 user = str(input("Enter name:"))
 playobj = Player(user)
 deckobj = Deck(SUITE, RANKS, playobj)
-deckobj.createDeckOfCards()
-deckobj.splitCards()
+deckobj.create_deck_of_cards()
+deckobj.split_cards()
 
 print('Welcome {}, you have got the following cards'.format(user))
-print(deckobj.getUserCards())
+print(deckobj.get_user_cards())
 
 print('\nAnd the computer got the following cards')
-print(deckobj.getComputerCards())
+print(deckobj.get_computer_cards())
 
 print('\nInitial Deal')
 print('======= ====')
 
 print('\nComputer Deals: ', end='')
-print(deckobj.getComputerCards()[0])
+print(deckobj.get_computer_cards()[0])
 print('User Deals: ', end='')
-print(deckobj.getUserCards()[0])
+print(deckobj.get_user_cards()[0])
 
-handobj = Hand(deckobj.getUserCards()[0], deckobj.getComputerCards()[0])
+handobj = Hand(deckobj.get_user_cards()[0], deckobj.get_computer_cards()[0],SUITE,RANKS,playobj)
 handobj.dealCard()
 
 print('\nFinal cards')
