@@ -40,10 +40,10 @@ class Hand(Deck):
 
             print("current player's card: {} |Vs|".format(self.card_user), end="\t")
             print("current Computer's card: {}\n".format(self.card_computer))
-            
+
             # guard conditions
             if len(self.user) > 0 and len(self.computer) == 0:
-                print("*** user wins ***")
+                print("*** player wins ***")
                 return
 
             if len(self.user) == 0 and len(self.computer) > 0:
@@ -65,19 +65,27 @@ class Hand(Deck):
 
                 elif int(card_value_of_the_user) == int(card_value_of_the_computer):
                     # equal-deal three times and recursion
-
+                    if 0 < len(self.user) <= 3 and 0 < len(self.computer) <= 3 and len(self.user) > len(self.computer):
+                        print("*** player wins ***")
+                        return
+                    if 0 < len(self.user) <= 3 and 0 < len(self.computer) <= 3 and len(self.user) < len(self.computer):
+                        print("*** computer wins ***")
+                        return
+                    if 0 < len(self.user) <= 3 and 0 < len(self.computer) <= 3 and len(self.user) == len(self.computer):
+                        print("*** Draw ***")
+                        return
                     # if it gets to last 3 cards #guard condition
-                    if len(self.user) >= 3 > len(self.computer):
+                    if len(self.user) > 3 and len(self.computer) <= 3:
                         print("*** player wins ***")
                         return
 
-                    if len(self.user) < 3 <= len(self.computer):
+                    if len(self.user) <= 3 and len(self.computer) > 3:
                         print("*** computer wins ***")
                         return
 
                     print("Equal: skip three cards")
                     print("-----  ---- ----- -----")
-                    print('user -> {}'.format(self.user))
+                    print('player -> {}'.format(self.user))
                     print('computer -> {}'.format(self.computer))
                     print("------ ----- ---- ----\n")
                     # pop 3 times
@@ -86,12 +94,15 @@ class Hand(Deck):
                     if len(self.user) > 3:
                         self.user = self.user[4:]
 
+                    if self.user == 0 and self.computer == 0:
+                        print('** Draw **')
+                        return
 
-                # update hand at the players
+                    # update hand at the players
                 if len(self.user) != 0:
                     self.card_user = self.user[0]
                 if len(self.computer) != 0:
-                    self.card_computer = self.computer[0]    
+                    self.card_computer = self.computer[0]
 
     def __str__(self):
         return f"Player's cards: {self.get_user_cards()} and Computer cards: {self.get_computer_cards()}"
