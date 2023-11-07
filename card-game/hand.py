@@ -38,7 +38,7 @@ class Hand(Deck):
             card_value_of_the_user = self.card_value(self.card_user[1:])
             card_value_of_the_computer = self.card_value(self.card_computer[1:])
 
-            print("current user's card: {} |Vs|".format(self.card_user), end="\t")
+            print("current player's card: {} |Vs|".format(self.card_user), end="\t")
             print("current Computer's card: {}\n".format(self.card_computer))
             
             # guard conditions
@@ -68,18 +68,24 @@ class Hand(Deck):
 
                     # if it gets to last 3 cards #guard condition
                     if len(self.user) >= 3 > len(self.computer):
-                        print("*** user wins ***")
+                        print("*** player wins ***")
                         return
 
                     if len(self.user) < 3 <= len(self.computer):
                         print("*** computer wins ***")
                         return
 
+                    print("Equal: skip three cards")
+                    print("-----  ---- ----- -----")
+                    print('user -> {}'.format(self.user))
+                    print('computer -> {}'.format(self.computer))
+                    print("------ ----- ---- ----\n")
                     # pop 3 times
                     if len(self.computer) > 3:
                         self.computer = self.computer[4:]
                     if len(self.user) > 3:
                         self.user = self.user[4:]
+
 
                 # update hand at the players
                 if len(self.user) != 0:
@@ -88,4 +94,4 @@ class Hand(Deck):
                     self.card_computer = self.computer[0]    
 
     def __str__(self):
-        return f"User cards: {self.get_user_cards()} and Computer cards: {self.get_computer_cards()}"
+        return f"Player's cards: {self.get_user_cards()} and Computer cards: {self.get_computer_cards()}"

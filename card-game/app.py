@@ -18,13 +18,8 @@ print(deckobj.get_user_cards())
 print('\nAnd the computer got the following cards')
 print(deckobj.get_computer_cards())
 
-print('\nInitial Deal')
-print('======= ====')
-
-print('\nComputer Deals: ', end='')
-print(deckobj.get_computer_cards()[0])
-print('User Deals: ', end='')
-print(deckobj.get_user_cards()[0])
+print('\nCard Deals')
+print('==== =====')
 
 handobj = Hand(deckobj.get_user_cards()[0], deckobj.get_computer_cards()[0],SUITE,RANKS,playobj)
 handobj.dealCard()
